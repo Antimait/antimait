@@ -6,11 +6,11 @@ with open("README.md", "r") as desc_file:
 
 setup(
     name="antimait",
-    version="0.1",
+    version="0.2.1",
     description="antimait is a library made of tools to ease the implementation "
                 "of IoT automation systems based on devices such as Arduino and ESP.",
-    longer_description=desc,
-    longer_description_content_type="text/markdown",
+    long_description=desc,
+    long_description_content_type="text/markdown",
     author="Gianmarco Marcello",
     author_email="g.marcello@antima.it",
     url="https://github.com/Antimait/antimait",

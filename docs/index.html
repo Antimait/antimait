@@ -38,7 +38,7 @@ import serial  # type: ignore
 from serial.tools import list_ports  # type: ignore
 
 from abc import ABC, abstractmethod
-from threading import Thread, Lock
+from threading import Thread
 from typing import List, Dict, Set, Optional
 from typing_extensions import Protocol
 
@@ -50,7 +50,6 @@ import sys
 
 
 __all__ = [&#34;Comm&#34;, &#34;DataReceiver&#34;, &#34;CommInterface&#34;, &#34;SerialInterface&#34;, &#34;Printer&#34;, &#34;Gateway&#34;]
-logging.basicConfig(level=logging.INFO)
 
 DEFAULT_BAUD = 9600
 
@@ -123,7 +122,7 @@ class DataSource:
             **update (str): used to customize the update mechanism. If action == Comm.DATA, the data kw must be used.
 
         Returns:
-
+            None
         &#34;&#34;&#34;
         for receiver in self._receivers:
             receiver.update(action, **update)
@@ -134,6 +133,16 @@ class CommInterface(ABC, DataSource):
     An abstract class that represents a generic communication interface. A way to acquire data and to
     stop the process must be specified by any inherithing class.
     &#34;&#34;&#34;
+
+    @property
+    @abstractmethod
+    def ifc_id(self) -&gt; str:
+        &#34;&#34;&#34;
+        Returns:
+            str, an identifier in the format communicationtype_interfacename.
+            e.g. serial_COM5
+        &#34;&#34;&#34;
+        pass
 
     @abstractmethod
     def close(self) -&gt; None:
@@ -176,10 +185,18 @@ class SerialInterface(CommInterface):
             baud_rate (int): the baud rate, the default value is specified in DEFAULT_BAUD = 9600.
         &#34;&#34;&#34;
         super().__init__()
+        self._ifc_id = &#34;serial_{}&#34;.format(port)
         self._port: str = port
         self._baud_rate: int = baud_rate or DEFAULT_BAUD
-        self._serial: serial.Serial = serial.Serial(port=self._port, baudrate=self._baud_rate)
         self._listening: bool = False
+        try:
+            self._serial: serial.Serial = serial.Serial(port=self._port, baudrate=self._baud_rate)
+        except Exception as e:
+            raise e
+
+    @property
+    def ifc_id(self):
+        return self._ifc_id
 
     def _poll(self) -&gt; None:
         &#34;&#34;&#34;
@@ -197,6 +214,9 @@ class SerialInterface(CommInterface):
                 self.notify(action=Comm.DATA, data=data.decode())
         except serial.SerialException:
             logging.error(&#34;Serial error, closing interface&#34;)
+            self.listen()
+        except UnicodeDecodeError as ude:
+            logging.error(ude)
             self.listen()
 
     def close(self) -&gt; None:
@@ -271,9 +291,20 @@ class Gateway:
         self._interfaces: Dict[str, CommInterface] = {}
         self._serial_ports: Set[SerialPort] = set()
         self._started: bool = True
-        self._ifc_mutex: Lock = Lock()
 
     on_connect: Optional[OnConnect] = None
+    &#34;&#34;&#34;
+    on_connect callable that defaults to None. Redefine to give a custom on_connect 
+    behaviour to the gateway object.
+    &#34;&#34;&#34;
+
+    @property
+    def interfaces(self) -&gt; List[CommInterface]:
+        &#34;&#34;&#34;
+        Returns:
+           List[CommInterface], a list of the interfaces connected at this time
+        &#34;&#34;&#34;
+        return list(self._interfaces.values())
 
     def _on_connect(self, interface: CommInterface, description: str) -&gt; None:
         &#34;&#34;&#34;
@@ -418,6 +449,16 @@ stop the process must be specified by any inherithing class.</p></section>
     stop the process must be specified by any inherithing class.
     &#34;&#34;&#34;
 
+    @property
+    @abstractmethod
+    def ifc_id(self) -&gt; str:
+        &#34;&#34;&#34;
+        Returns:
+            str, an identifier in the format communicationtype_interfacename.
+            e.g. serial_COM5
+        &#34;&#34;&#34;
+        pass
+
     @abstractmethod
     def close(self) -&gt; None:
         &#34;&#34;&#34;
@@ -455,6 +496,32 @@ stop the process must be specified by any inherithing class.</p></section>
 <ul class="hlist">
 <li><a title="antimait.SerialInterface" href="#antimait.SerialInterface">SerialInterface</a></li>
 </ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="antimait.CommInterface.ifc_id"><code class="name">var <span class="ident">ifc_id</span></code></dt>
+<dd>
+<section class="desc"><h2 id="returns">Returns</h2>
+<dl>
+<dt>str, an identifier in the format communicationtype_interfacename.</dt>
+<dt><code>e.g.</code> <code>serial_COM5</code></dt>
+<dd>&nbsp;</dd>
+</dl></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+@abstractmethod
+def ifc_id(self) -&gt; str:
+    &#34;&#34;&#34;
+    Returns:
+        str, an identifier in the format communicationtype_interfacename.
+        e.g. serial_COM5
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+</dd>
+</dl>
 <h3>Methods</h3>
 <dl>
 <dt id="antimait.CommInterface.close"><code class="name flex">
@@ -627,9 +694,20 @@ def update(self, action: Comm, **update: str) -&gt; None:
         self._interfaces: Dict[str, CommInterface] = {}
         self._serial_ports: Set[SerialPort] = set()
         self._started: bool = True
-        self._ifc_mutex: Lock = Lock()
 
     on_connect: Optional[OnConnect] = None
+    &#34;&#34;&#34;
+    on_connect callable that defaults to None. Redefine to give a custom on_connect 
+    behaviour to the gateway object.
+    &#34;&#34;&#34;
+
+    @property
+    def interfaces(self) -&gt; List[CommInterface]:
+        &#34;&#34;&#34;
+        Returns:
+           List[CommInterface], a list of the interfaces connected at this time
+        &#34;&#34;&#34;
+        return list(self._interfaces.values())
 
     def _on_connect(self, interface: CommInterface, description: str) -&gt; None:
         &#34;&#34;&#34;
@@ -710,7 +788,31 @@ def update(self, action: Comm, **update: str) -&gt; None:
 <dl>
 <dt id="antimait.Gateway.on_connect"><code class="name">var <span class="ident">on_connect</span></code></dt>
 <dd>
-<section class="desc"></section>
+<section class="desc"><p>on_connect callable that defaults to None. Redefine to give a custom on_connect
+behaviour to the gateway object.</p></section>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="antimait.Gateway.interfaces"><code class="name">var <span class="ident">interfaces</span></code></dt>
+<dd>
+<section class="desc"><h2 id="returns">Returns</h2>
+<dl>
+<dt><code>List</code>[<code>CommInterface</code>], <code>a</code> <code>list</code> of <code>the</code> <code>interfaces</code> <code>connected</code> <code>at</code> <code>this</code> <code>time</code></dt>
+<dd>&nbsp;</dd>
+</dl></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def interfaces(self) -&gt; List[CommInterface]:
+    &#34;&#34;&#34;
+    Returns:
+       List[CommInterface], a list of the interfaces connected at this time
+    &#34;&#34;&#34;
+    return list(self._interfaces.values())</code></pre>
+</details>
 </dd>
 </dl>
 <h3>Methods</h3>
@@ -860,10 +962,18 @@ under the data keyword.</p>
             baud_rate (int): the baud rate, the default value is specified in DEFAULT_BAUD = 9600.
         &#34;&#34;&#34;
         super().__init__()
+        self._ifc_id = &#34;serial_{}&#34;.format(port)
         self._port: str = port
         self._baud_rate: int = baud_rate or DEFAULT_BAUD
-        self._serial: serial.Serial = serial.Serial(port=self._port, baudrate=self._baud_rate)
         self._listening: bool = False
+        try:
+            self._serial: serial.Serial = serial.Serial(port=self._port, baudrate=self._baud_rate)
+        except Exception as e:
+            raise e
+
+    @property
+    def ifc_id(self):
+        return self._ifc_id
 
     def _poll(self) -&gt; None:
         &#34;&#34;&#34;
@@ -881,6 +991,9 @@ under the data keyword.</p>
                 self.notify(action=Comm.DATA, data=data.decode())
         except serial.SerialException:
             logging.error(&#34;Serial error, closing interface&#34;)
+            self.listen()
+        except UnicodeDecodeError as ude:
+            logging.error(ude)
             self.listen()
 
     def close(self) -&gt; None:
@@ -904,6 +1017,7 @@ under the data keyword.</p>
 <li><code><b><a title="antimait.CommInterface" href="#antimait.CommInterface">CommInterface</a></b></code>:
 <ul class="hlist">
 <li><code><a title="antimait.CommInterface.close" href="#antimait.CommInterface.close">close</a></code></li>
+<li><code><a title="antimait.CommInterface.ifc_id" href="#antimait.CommInterface.ifc_id">ifc_id</a></code></li>
 <li><code><a title="antimait.CommInterface.listen" href="#antimait.CommInterface.listen">listen</a></code></li>
 <li><code><a title="antimait.CommInterface.listen_forever" href="#antimait.CommInterface.listen_forever">listen_forever</a></code></li>
 </ul>
@@ -938,6 +1052,7 @@ under the data keyword.</p>
 <h4><code><a title="antimait.CommInterface" href="#antimait.CommInterface">CommInterface</a></code></h4>
 <ul class="">
 <li><code><a title="antimait.CommInterface.close" href="#antimait.CommInterface.close">close</a></code></li>
+<li><code><a title="antimait.CommInterface.ifc_id" href="#antimait.CommInterface.ifc_id">ifc_id</a></code></li>
 <li><code><a title="antimait.CommInterface.listen" href="#antimait.CommInterface.listen">listen</a></code></li>
 <li><code><a title="antimait.CommInterface.listen_forever" href="#antimait.CommInterface.listen_forever">listen_forever</a></code></li>
 </ul>
@@ -952,6 +1067,7 @@ under the data keyword.</p>
 <h4><code><a title="antimait.Gateway" href="#antimait.Gateway">Gateway</a></code></h4>
 <ul class="">
 <li><code><a title="antimait.Gateway.close" href="#antimait.Gateway.close">close</a></code></li>
+<li><code><a title="antimait.Gateway.interfaces" href="#antimait.Gateway.interfaces">interfaces</a></code></li>
 <li><code><a title="antimait.Gateway.listen" href="#antimait.Gateway.listen">listen</a></code></li>
 <li><code><a title="antimait.Gateway.listen_forever" href="#antimait.Gateway.listen_forever">listen_forever</a></code></li>
 <li><code><a title="antimait.Gateway.on_connect" href="#antimait.Gateway.on_connect">on_connect</a></code></li>

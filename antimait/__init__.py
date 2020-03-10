@@ -8,7 +8,7 @@ import serial  # type: ignore
 from serial.tools import list_ports  # type: ignore
 
 from abc import ABC, abstractmethod
-from threading import Thread, Lock
+from threading import Thread
 from typing import List, Dict, Set, Optional
 from typing_extensions import Protocol
 
@@ -92,7 +92,7 @@ class DataSource:
             **update (str): used to customize the update mechanism. If action == Comm.DATA, the data kw must be used.
 
         Returns:
-
+            None
         """
         for receiver in self._receivers:
             receiver.update(action, **update)
@@ -103,6 +103,16 @@ class CommInterface(ABC, DataSource):
     An abstract class that represents a generic communication interface. A way to acquire data and to
     stop the process must be specified by any inherithing class.
     """
+
+    @property
+    @abstractmethod
+    def ifc_id(self) -> str:
+        """
+        Returns:
+            str, an identifier in the format communicationtype_interfacename.
+            e.g. serial_COM5
+        """
+        pass
 
     @abstractmethod
     def close(self) -> None:
@@ -145,10 +155,18 @@ class SerialInterface(CommInterface):
             baud_rate (int): the baud rate, the default value is specified in DEFAULT_BAUD = 9600.
         """
         super().__init__()
+        self._ifc_id = "serial_{}".format(port)
         self._port: str = port
         self._baud_rate: int = baud_rate or DEFAULT_BAUD
-        self._serial: serial.Serial = serial.Serial(port=self._port, baudrate=self._baud_rate)
         self._listening: bool = False
+        try:
+            self._serial: serial.Serial = serial.Serial(port=self._port, baudrate=self._baud_rate)
+        except Exception as e:
+            raise e
+
+    @property
+    def ifc_id(self):
+        return self._ifc_id
 
     def _poll(self) -> None:
         """
@@ -166,6 +184,9 @@ class SerialInterface(CommInterface):
                 self.notify(action=Comm.DATA, data=data.decode())
         except serial.SerialException:
             logging.error("Serial error, closing interface")
+            self.listen()
+        except UnicodeDecodeError as ude:
+            logging.error(ude)
             self.listen()
 
     def close(self) -> None:
@@ -240,13 +261,20 @@ class Gateway:
         self._interfaces: Dict[str, CommInterface] = {}
         self._serial_ports: Set[SerialPort] = set()
         self._started: bool = True
-        self._ifc_mutex: Lock = Lock()
 
     on_connect: Optional[OnConnect] = None
     """
     on_connect callable that defaults to None. Redefine to give a custom on_connect 
     behaviour to the gateway object.
     """
+
+    @property
+    def interfaces(self) -> List[CommInterface]:
+        """
+        Returns:
+           List[CommInterface], a list of the interfaces connected at this time
+        """
+        return list(self._interfaces.values())
 
     def _on_connect(self, interface: CommInterface, description: str) -> None:
         """

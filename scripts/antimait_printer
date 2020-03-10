@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-A simple script that describe the main functionalities of the antimait library.
+A simple script that describes the main functionalities of the antimait library.
 A gateway object is instantiated that listens for devices connected through serial ports;
 the main way to customize its behaviour is by redefining its on_connect and attaching DataReceivers
 through it.
