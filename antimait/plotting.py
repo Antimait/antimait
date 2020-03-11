@@ -8,10 +8,27 @@ from typing import List, Dict, Union
 from pathlib import Path
 import datetime
 import logging
+import re
 
 from . import DataReceiver, Comm
 
-__all__ = ["Plotter"]
+__all__ = ["format_filename", "Plotter"]
+
+
+def format_filename(strin: str) -> str:
+    """
+    Args:
+        strin: a string that has to be changed in a valid filename, generally a comport name
+
+    Returns:
+        str, a valid string for a filename
+    """
+    normalized = re.sub(r"[^\w]", "_", strin)
+    if normalized.startswith("_"):
+        normalized = normalized[1:]
+    if normalized.endswith("_"):
+        normalized = normalized[:-1]
+    return normalized
 
 
 class Plotter(DataReceiver):
@@ -133,9 +150,9 @@ class Plotter(DataReceiver):
 
             if not self._overwrite:
                 date_fmt = datetime.datetime.now().strftime("%d-%m-%y_%I-%M-%S")
-                file_name = "{}_{}".format(self._session_name, date_fmt)
+                file_name = "{}_{}".format(format_filename(self._session_name), date_fmt)
             else:
-                file_name = self._session_name
+                file_name = format_filename(self._session_name)
 
             plt.savefig(Path(self._img_dir, file_name))
             plt.clf()

@@ -6,7 +6,7 @@ with open("README.md", "r") as desc_file:
 
 setup(
     name="antimait",
-    version="0.2.1",
+    version="0.2.2",
     description="antimait is a library made of tools to ease the implementation "
                 "of IoT automation systems based on devices such as Arduino and ESP.",
     long_description=desc,
@@ -17,4 +17,5 @@ setup(
     python_requires=">=3.7",
     install_requires=["matplotlib", "pyserial", "typing_extensions"],
     packages=find_packages(exclude=["tests"]),
+    scripts=["scripts/antimait_printer"]
 )
