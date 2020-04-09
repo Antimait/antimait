@@ -124,6 +124,19 @@ class CommInterface(ABC, DataSource):
         pass
 
     @abstractmethod
+    def send(self, msg: str) -> None:
+        """
+        Forwards a message to the device identified by this
+        interface. May not always be implemented.
+        Args:
+            msg (str): the message to forward to the device.
+
+        Returns:
+            None
+        """
+        pass
+
+    @abstractmethod
     def listen(self) -> None:
         """
         Listens for incoming data. This method is non-blocking and spawns a
@@ -192,6 +205,9 @@ class SerialInterface(CommInterface):
     def close(self) -> None:
         self._listening = False
         self.notify(action=Comm.CLOSING)
+
+    def send(self, msg: str) -> None:
+        self._serial.write(msg.encode())
 
     def listen(self) -> None:
         Thread(target=self._poll).start()
@@ -334,6 +350,34 @@ class Gateway:
         self._started = False
         for interface in self._interfaces:
             self._interfaces[interface].close()
+
+    def forward(self, dest: str, msg: str) -> None:
+        """
+        Forwards a string message to the device connected through the interface identified by dest.
+        Args:
+            dest: the id of the interface to which you're forwarding data.
+            msg: the message being sent.
+
+        Returns:
+            None
+        """
+        try:
+            self._interfaces[dest].send(msg)
+        except KeyError:
+            raise KeyError("No such interface!")
+
+    def broadcast(self, msg: str):
+        """
+        Broadcasts a string message to each interface connected.
+        Args:
+            msg: the message being broadcasted.
+
+        Returns:
+            None
+        """
+
+        for interface_id in self._interfaces:
+            self._interfaces[interface_id].send(msg)
 
     def listen(self):
         """
