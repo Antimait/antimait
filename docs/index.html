@@ -1,0 +1,1323 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.7.5" />
+<title>antimait API documentation</title>
+<meta name="description" content="antimait is a library made of tools to ease the implementation of IoT automation systems based on devices such as
+Arduino and ESP. It offers tools to …" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:20vw;position:fixed;top:0;left:0}#content{width:75vw;max-width:255ch;padding:3em 4em 0 25vw;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>antimait</code></h1>
+</header>
+<section id="section-intro">
+<p>antimait is a library made of tools to ease the implementation of IoT automation systems based on devices such as
+Arduino and ESP. It offers tools to connect to them through different communication protocols and means and to
+analyze data collected from various sources.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;
+antimait is a library made of tools to ease the implementation of IoT automation systems based on devices such as
+Arduino and ESP. It offers tools to connect to them through different communication protocols and means and to
+analyze data collected from various sources.
+&#34;&#34;&#34;
+
+import serial  # type: ignore
+from serial.tools import list_ports  # type: ignore
+
+from abc import ABC, abstractmethod
+from threading import Thread
+from typing import List, Dict, Set, Optional
+from typing_extensions import Protocol
+
+from enum import Enum
+
+import logging
+import time
+import sys
+
+
+__all__ = [&#34;com_interfaces&#34;, &#34;Comm&#34;, &#34;DataReceiver&#34;, &#34;CommInterface&#34;, &#34;SerialInterface&#34;, &#34;Printer&#34;, &#34;Gateway&#34;]
+
+DEFAULT_BAUD = 9600
+
+
+def com_interfaces() -&gt; Dict[str, str]:
+    &#34;&#34;&#34;
+    Returns a dict containing information about the devices connected through the comport
+    Returns:
+
+    &#34;&#34;&#34;
+    return {ifc.device: ifc.description for ifc in list_ports.comports()}
+
+
+class Comm(Enum):
+    &#34;&#34;&#34;
+    Enum that ties in with the action parameter in the DataReceiver/Source
+    classes.
+    &#34;&#34;&#34;
+    CLOSING = 0
+    DATA = 1
+
+
+class DataReceiver(ABC):
+    &#34;&#34;&#34;
+    An abstract class that defines the Observer part of the Observe pattern
+    for data sources and objects that received data on arrival.
+    &#34;&#34;&#34;
+    @abstractmethod
+    def update(self, action: Comm, **update: str) -&gt; None:
+        &#34;&#34;&#34;
+
+        Args:
+            action (Comm): an instance of the Comm enum to specify what action occurred.
+            **update (str): used to customize the update mechanism. If action == Comm.DATA, the data kw must be used.
+
+        Returns:
+            None
+        &#34;&#34;&#34;
+        pass
+
+
+class DataSource:
+    &#34;&#34;&#34;
+    Conecrete class that defines the Observable part of the Observe pattern.
+    All CommInterfaces are also DataSources.
+    &#34;&#34;&#34;
+    def __init__(self):
+        self._receivers: List[DataReceiver] = []
+
+    def attach(self, rec: DataReceiver) -&gt; None:
+        &#34;&#34;&#34;
+        Attaches a receiver to this DataSource and notifies it everytime an action is performed.
+        Args:
+            rec (DataReceiver): the new receiver.
+
+        Returns:
+            None
+        &#34;&#34;&#34;
+        self._receivers.append(rec)
+
+    def detach(self, rec: DataReceiver) -&gt; None:
+        &#34;&#34;&#34;
+        Detaches, if present, the passed receiver.
+        Args:
+            rec (DataReceiver): the receiver to detach.
+
+        Returns:
+            None
+        &#34;&#34;&#34;
+        if rec in self._receivers:
+            self._receivers.remove(rec)
+
+    def notify(self, action: Comm, **update: str) -&gt; None:
+        &#34;&#34;&#34;
+        Notifies a receiver that either data has been received or that the source is
+        closing.
+        Args:
+            action (Comm): an instance of the Comm enum to specify what action occurred.
+            **update (str): used to customize the update mechanism. If action == Comm.DATA, the data kw must be used.
+
+        Returns:
+            None
+        &#34;&#34;&#34;
+        for receiver in self._receivers:
+            receiver.update(action, **update)
+
+
+class CommInterface(ABC, DataSource):
+    &#34;&#34;&#34;
+    An abstract class that represents a generic communication interface. A way to acquire data and to
+    stop the process must be specified by any inherithing class.
+    &#34;&#34;&#34;
+
+    @property
+    @abstractmethod
+    def ifc_id(self) -&gt; str:
+        &#34;&#34;&#34;
+        Returns:
+            str, an identifier in the format communicationtype_interfacename.
+            e.g. serial_COM5
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def close(self) -&gt; None:
+        &#34;&#34;&#34;
+        Closes the Communication Interface.
+        Returns:
+            None
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def send(self, msg: str) -&gt; None:
+        &#34;&#34;&#34;
+        Forwards a message to the device identified by this
+        interface. May not always be implemented.
+        Args:
+            msg (str): the message to forward to the device.
+
+        Returns:
+            None
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def listen(self) -&gt; None:
+        &#34;&#34;&#34;
+        Listens for incoming data. This method is non-blocking and spawns a
+        new Thread that handles the data.
+        Returns:
+            None
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def listen_forever(self) -&gt; None:
+        &#34;&#34;&#34;
+        Listens for incoming data. This method is a blocking version of CommInterface.listen.
+        Returns:
+            None
+        &#34;&#34;&#34;
+        pass
+
+
+class SerialInterface(CommInterface):
+    def __init__(self, port: str, baud_rate: int = None):
+        &#34;&#34;&#34;
+        Constructs a new serial interface based on serial.Serial.
+        When listening for serial data, this class uses the Observer pattern to notify that new
+        data has been acquired. It is passed through the DataSource.notify method to any observer,
+        under the data keyword.
+        Args:
+            port (str): the serial port from which reading the data.
+            baud_rate (int): the baud rate, the default value is specified in DEFAULT_BAUD = 9600.
+        &#34;&#34;&#34;
+        super().__init__()
+        self._port: str = port
+        self._baud_rate: int = baud_rate or DEFAULT_BAUD
+        self._listening: bool = False
+        try:
+            self._serial: serial.Serial = serial.Serial(port=self._port, baudrate=self._baud_rate)
+        except Exception as e:
+            raise e
+
+    @property
+    def ifc_id(self):
+        return self._port
+
+    def _poll(self) -&gt; None:
+        &#34;&#34;&#34;
+        The method implementing the polling routine that reads from the serial port.
+        Returns:
+            None
+        &#34;&#34;&#34;
+        if self._listening:
+            return
+
+        self._listening = True
+        try:
+            while self._listening:
+                data = self._serial.readline()
+                self.notify(action=Comm.DATA, data=data.decode())
+        except serial.SerialException:
+            logging.error(&#34;Serial error, closing interface&#34;)
+            self.listen()
+        except UnicodeDecodeError as ude:
+            logging.error(ude)
+            self.listen()
+
+    def close(self) -&gt; None:
+        self._listening = False
+        self.notify(action=Comm.CLOSING)
+
+    def send(self, msg: str) -&gt; None:
+        self._serial.write(msg.encode())
+
+    def listen(self) -&gt; None:
+        Thread(target=self._poll).start()
+
+    def listen_forever(self) -&gt; None:
+        self._poll()
+
+
+class Printer(DataReceiver):
+    &#34;&#34;&#34;
+    A simple receiver class that serves as an example for other receiver implementations.
+    This just prints whatever it receives.
+    &#34;&#34;&#34;
+    def update(self, action: Comm, **update: str) -&gt; None:
+        if action == Comm.DATA:
+            if &#34;data&#34; in update:
+                print(&#34;Printing data: {}&#34;.format(update[&#34;data&#34;]))
+            else:
+                logging.error(&#34;data keyword not passed!&#34;)
+        elif action == Comm.CLOSING:
+            logging.info(&#34;Printer closing&#34;)
+
+
+class SerialPort:
+    &#34;&#34;&#34;
+    This class is used internally in the Gateway class to have an hashable
+    container for serial ports informations.
+    &#34;&#34;&#34;
+    def __init__(self, port: str, description: str):
+        self._port: str = port
+        self._description: str = description
+
+    @property
+    def port(self):
+        return self._port
+
+    @property
+    def description(self):
+        return self._description
+
+    def __repr__(self) -&gt; str:
+        return &#34;SerialPort({}, {})&#34;.format(self._port, self._description)
+
+    def __eq__(self, other: object) -&gt; bool:
+        if not isinstance(other, SerialPort):
+            return False
+        if self is other:
+            return True
+        return self._port == other._port and self._description == other._description
+
+    def __hash__(self) -&gt; int:
+        return hash(str(hash(self._port)) + str(hash(self._description)))
+
+
+class OnConnect(Protocol):
+    def __call__(self, interface: CommInterface, description: str) -&gt; None:
+        pass
+
+
+class Gateway:
+    &#34;&#34;&#34;
+    A gateway class that handles serial connections.
+    &#34;&#34;&#34;
+    _MONITOR_DELAY: int = 1  # seconds
+
+    def __init__(self):
+        self._interfaces: Dict[str, CommInterface] = {}
+        self._serial_ports: Set[SerialPort] = set()
+        self._started: bool = True
+
+    on_connect: Optional[OnConnect] = None
+    &#34;&#34;&#34;
+    on_connect callable that defaults to None. Redefine to give a custom on_connect 
+    behaviour to the gateway object.
+    &#34;&#34;&#34;
+
+    @property
+    def interfaces(self) -&gt; List[CommInterface]:
+        &#34;&#34;&#34;
+        Returns:
+           List[CommInterface], a list of the interfaces connected at this time
+        &#34;&#34;&#34;
+        return list(self._interfaces.values())
+
+    def _on_connect(self, interface: CommInterface, description: str) -&gt; None:
+        &#34;&#34;&#34;
+        Do not touch this method. This checks for the user defined on_connect to call as
+        a callback when a new device goes up.
+        Args:
+            interface (CommInterface): the interface that is connecting.
+            description (str): a string containing information about the interface.
+
+        Returns:
+            None
+        &#34;&#34;&#34;
+        try:
+            if self.on_connect is not None:
+                self.on_connect(interface, description)
+        except TypeError:
+            logging.error(&#34;Wrong parameters for the custom on_connect method.&#34;)
+            sys.exit(1)
+
+    def _serial_monitor(self) -&gt; None:
+        &#34;&#34;&#34;
+        The serial devices loop.
+        Every time interval (defined in _MONITOR_DELAY) a read of the serial devices connected to the
+        machine is performed; new devices are attached and devices that are no longer connected get killed.
+        Returns:
+            None
+        &#34;&#34;&#34;
+        while self._started:
+            devices = {SerialPort(portinfo.device, portinfo.description) for portinfo in list_ports.comports()}
+            to_remove: Set[SerialPort] = self._serial_ports.difference(devices)
+            to_add: Set[SerialPort] = devices.difference(self._serial_ports)
+
+            if to_remove:
+                for elem_rem in to_remove:
+                    self._interfaces[elem_rem.port].close()
+                    self._interfaces.pop(elem_rem.port, None)
+                    self._serial_ports.discard(elem_rem)
+                    logging.info(&#34;Serial interface {} ({}) disconnected.&#34;.format(elem_rem.port, elem_rem.description))
+
+            if to_add:
+                for elem_add in to_add:
+                    self._serial_ports.add(elem_add)
+                    new_interface = SerialInterface(elem_add.port)
+                    self._on_connect(new_interface, elem_add.description)
+                    new_interface.listen()
+                    self._interfaces[elem_add.port] = new_interface
+                    logging.info(&#34;Serial interface {} ({}) connected.&#34;.format(elem_add.port, elem_add.description))
+
+            time.sleep(self._MONITOR_DELAY)
+
+    def close(self):
+        &#34;&#34;&#34;
+        Closes the gateway, ending the serial loop.
+        Returns:
+            None
+        &#34;&#34;&#34;
+        self._started = False
+        for interface in self._interfaces:
+            self._interfaces[interface].close()
+
+    def forward(self, dest: str, msg: str) -&gt; None:
+        &#34;&#34;&#34;
+        Forwards a string message to the device connected through the interface identified by dest.
+        Args:
+            dest: the id of the interface to which you&#39;re forwarding data.
+            msg: the message being sent.
+
+        Returns:
+            None
+        &#34;&#34;&#34;
+        try:
+            self._interfaces[dest].send(msg)
+        except KeyError:
+            raise KeyError(&#34;No such interface!&#34;)
+
+    def broadcast(self, msg: str) -&gt; None:
+        &#34;&#34;&#34;
+        Broadcasts a string message to each interface connected.
+        Args:
+            msg: the message being broadcasted.
+
+        Returns:
+            None
+        &#34;&#34;&#34;
+
+        for interface_id in self._interfaces:
+            self._interfaces[interface_id].send(msg)
+
+    def listen(self):
+        &#34;&#34;&#34;
+        Non blocking listen method for the gateway.
+        Returns:
+            None
+        &#34;&#34;&#34;
+        Thread(target=self._serial_monitor).start()
+
+    def listen_forever(self):
+        &#34;&#34;&#34;
+        Blocking listen method for the gateway.
+        Returns:
+            None
+        &#34;&#34;&#34;
+        self._serial_monitor()</code></pre>
+</details>
+</section>
+<section>
+<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+<dl>
+<dt><code class="name"><a title="antimait.plotting" href="plotting.html">antimait.plotting</a></code></dt>
+<dd>
+<section class="desc"><p>Plotting utilities for incoming data based on matplotlib.pyplot.</p></section>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="antimait.com_interfaces"><code class="name flex">
+<span>def <span class="ident">com_interfaces</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Returns a dict containing information about the devices connected through the comport
+Returns:</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def com_interfaces() -&gt; Dict[str, str]:
+    &#34;&#34;&#34;
+    Returns a dict containing information about the devices connected through the comport
+    Returns:
+
+    &#34;&#34;&#34;
+    return {ifc.device: ifc.description for ifc in list_ports.comports()}</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="antimait.Comm"><code class="flex name class">
+<span>class <span class="ident">Comm</span></span>
+<span>(</span><span>value, names=None, *, module=None, qualname=None, type=None, start=1)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Enum that ties in with the action parameter in the DataReceiver/Source
+classes.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Comm(Enum):
+    &#34;&#34;&#34;
+    Enum that ties in with the action parameter in the DataReceiver/Source
+    classes.
+    &#34;&#34;&#34;
+    CLOSING = 0
+    DATA = 1</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>enum.Enum</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="antimait.Comm.CLOSING"><code class="name">var <span class="ident">CLOSING</span></code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+<dt id="antimait.Comm.DATA"><code class="name">var <span class="ident">DATA</span></code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+</dl>
+</dd>
+<dt id="antimait.CommInterface"><code class="flex name class">
+<span>class <span class="ident">CommInterface</span></span>
+</code></dt>
+<dd>
+<section class="desc"><p>An abstract class that represents a generic communication interface. A way to acquire data and to
+stop the process must be specified by any inherithing class.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CommInterface(ABC, DataSource):
+    &#34;&#34;&#34;
+    An abstract class that represents a generic communication interface. A way to acquire data and to
+    stop the process must be specified by any inherithing class.
+    &#34;&#34;&#34;
+
+    @property
+    @abstractmethod
+    def ifc_id(self) -&gt; str:
+        &#34;&#34;&#34;
+        Returns:
+            str, an identifier in the format communicationtype_interfacename.
+            e.g. serial_COM5
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def close(self) -&gt; None:
+        &#34;&#34;&#34;
+        Closes the Communication Interface.
+        Returns:
+            None
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def send(self, msg: str) -&gt; None:
+        &#34;&#34;&#34;
+        Forwards a message to the device identified by this
+        interface. May not always be implemented.
+        Args:
+            msg (str): the message to forward to the device.
+
+        Returns:
+            None
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def listen(self) -&gt; None:
+        &#34;&#34;&#34;
+        Listens for incoming data. This method is non-blocking and spawns a
+        new Thread that handles the data.
+        Returns:
+            None
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def listen_forever(self) -&gt; None:
+        &#34;&#34;&#34;
+        Listens for incoming data. This method is a blocking version of CommInterface.listen.
+        Returns:
+            None
+        &#34;&#34;&#34;
+        pass</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>abc.ABC</li>
+<li>antimait.DataSource</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="antimait.SerialInterface" href="#antimait.SerialInterface">SerialInterface</a></li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="antimait.CommInterface.ifc_id"><code class="name">var <span class="ident">ifc_id</span></code></dt>
+<dd>
+<section class="desc"><h2 id="returns">Returns</h2>
+<dl>
+<dt>str, an identifier in the format communicationtype_interfacename.</dt>
+<dt><code>e.g.</code> <code>serial_COM5</code></dt>
+<dd>&nbsp;</dd>
+</dl></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+@abstractmethod
+def ifc_id(self) -&gt; str:
+    &#34;&#34;&#34;
+    Returns:
+        str, an identifier in the format communicationtype_interfacename.
+        e.g. serial_COM5
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="antimait.CommInterface.close"><code class="name flex">
+<span>def <span class="ident">close</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Closes the Communication Interface.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>None</code></dt>
+<dd>&nbsp;</dd>
+</dl></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def close(self) -&gt; None:
+    &#34;&#34;&#34;
+    Closes the Communication Interface.
+    Returns:
+        None
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+</dd>
+<dt id="antimait.CommInterface.listen"><code class="name flex">
+<span>def <span class="ident">listen</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Listens for incoming data. This method is non-blocking and spawns a
+new Thread that handles the data.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>None</code></dt>
+<dd>&nbsp;</dd>
+</dl></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def listen(self) -&gt; None:
+    &#34;&#34;&#34;
+    Listens for incoming data. This method is non-blocking and spawns a
+    new Thread that handles the data.
+    Returns:
+        None
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+</dd>
+<dt id="antimait.CommInterface.listen_forever"><code class="name flex">
+<span>def <span class="ident">listen_forever</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Listens for incoming data. This method is a blocking version of CommInterface.listen.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>None</code></dt>
+<dd>&nbsp;</dd>
+</dl></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def listen_forever(self) -&gt; None:
+    &#34;&#34;&#34;
+    Listens for incoming data. This method is a blocking version of CommInterface.listen.
+    Returns:
+        None
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+</dd>
+<dt id="antimait.CommInterface.send"><code class="name flex">
+<span>def <span class="ident">send</span></span>(<span>self, msg)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Forwards a message to the device identified by this
+interface. May not always be implemented.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>msg</code></strong> :&ensp;<code>str</code></dt>
+<dd>the message to forward to the device.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>None</code></dt>
+<dd>&nbsp;</dd>
+</dl></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def send(self, msg: str) -&gt; None:
+    &#34;&#34;&#34;
+    Forwards a message to the device identified by this
+    interface. May not always be implemented.
+    Args:
+        msg (str): the message to forward to the device.
+
+    Returns:
+        None
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="antimait.DataReceiver"><code class="flex name class">
+<span>class <span class="ident">DataReceiver</span></span>
+</code></dt>
+<dd>
+<section class="desc"><p>An abstract class that defines the Observer part of the Observe pattern
+for data sources and objects that received data on arrival.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class DataReceiver(ABC):
+    &#34;&#34;&#34;
+    An abstract class that defines the Observer part of the Observe pattern
+    for data sources and objects that received data on arrival.
+    &#34;&#34;&#34;
+    @abstractmethod
+    def update(self, action: Comm, **update: str) -&gt; None:
+        &#34;&#34;&#34;
+
+        Args:
+            action (Comm): an instance of the Comm enum to specify what action occurred.
+            **update (str): used to customize the update mechanism. If action == Comm.DATA, the data kw must be used.
+
+        Returns:
+            None
+        &#34;&#34;&#34;
+        pass</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>abc.ABC</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="antimait.Printer" href="#antimait.Printer">Printer</a></li>
+<li><a title="antimait.plotting.Plotter" href="plotting.html#antimait.plotting.Plotter">Plotter</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="antimait.DataReceiver.update"><code class="name flex">
+<span>def <span class="ident">update</span></span>(<span>self, action, **update)</span>
+</code></dt>
+<dd>
+<section class="desc"><h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>action</code></strong> :&ensp;<a title="antimait.Comm" href="#antimait.Comm"><code>Comm</code></a></dt>
+<dd>an instance of the Comm enum to specify what action occurred.</dd>
+<dt><strong><code>**update</code></strong> :&ensp;<code>str</code></dt>
+<dd>used to customize the update mechanism. If action == Comm.DATA, the data kw must be used.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>None</code></dt>
+<dd>&nbsp;</dd>
+</dl></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def update(self, action: Comm, **update: str) -&gt; None:
+    &#34;&#34;&#34;
+
+    Args:
+        action (Comm): an instance of the Comm enum to specify what action occurred.
+        **update (str): used to customize the update mechanism. If action == Comm.DATA, the data kw must be used.
+
+    Returns:
+        None
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="antimait.Gateway"><code class="flex name class">
+<span>class <span class="ident">Gateway</span></span>
+</code></dt>
+<dd>
+<section class="desc"><p>A gateway class that handles serial connections.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Gateway:
+    &#34;&#34;&#34;
+    A gateway class that handles serial connections.
+    &#34;&#34;&#34;
+    _MONITOR_DELAY: int = 1  # seconds
+
+    def __init__(self):
+        self._interfaces: Dict[str, CommInterface] = {}
+        self._serial_ports: Set[SerialPort] = set()
+        self._started: bool = True
+
+    on_connect: Optional[OnConnect] = None
+    &#34;&#34;&#34;
+    on_connect callable that defaults to None. Redefine to give a custom on_connect 
+    behaviour to the gateway object.
+    &#34;&#34;&#34;
+
+    @property
+    def interfaces(self) -&gt; List[CommInterface]:
+        &#34;&#34;&#34;
+        Returns:
+           List[CommInterface], a list of the interfaces connected at this time
+        &#34;&#34;&#34;
+        return list(self._interfaces.values())
+
+    def _on_connect(self, interface: CommInterface, description: str) -&gt; None:
+        &#34;&#34;&#34;
+        Do not touch this method. This checks for the user defined on_connect to call as
+        a callback when a new device goes up.
+        Args:
+            interface (CommInterface): the interface that is connecting.
+            description (str): a string containing information about the interface.
+
+        Returns:
+            None
+        &#34;&#34;&#34;
+        try:
+            if self.on_connect is not None:
+                self.on_connect(interface, description)
+        except TypeError:
+            logging.error(&#34;Wrong parameters for the custom on_connect method.&#34;)
+            sys.exit(1)
+
+    def _serial_monitor(self) -&gt; None:
+        &#34;&#34;&#34;
+        The serial devices loop.
+        Every time interval (defined in _MONITOR_DELAY) a read of the serial devices connected to the
+        machine is performed; new devices are attached and devices that are no longer connected get killed.
+        Returns:
+            None
+        &#34;&#34;&#34;
+        while self._started:
+            devices = {SerialPort(portinfo.device, portinfo.description) for portinfo in list_ports.comports()}
+            to_remove: Set[SerialPort] = self._serial_ports.difference(devices)
+            to_add: Set[SerialPort] = devices.difference(self._serial_ports)
+
+            if to_remove:
+                for elem_rem in to_remove:
+                    self._interfaces[elem_rem.port].close()
+                    self._interfaces.pop(elem_rem.port, None)
+                    self._serial_ports.discard(elem_rem)
+                    logging.info(&#34;Serial interface {} ({}) disconnected.&#34;.format(elem_rem.port, elem_rem.description))
+
+            if to_add:
+                for elem_add in to_add:
+                    self._serial_ports.add(elem_add)
+                    new_interface = SerialInterface(elem_add.port)
+                    self._on_connect(new_interface, elem_add.description)
+                    new_interface.listen()
+                    self._interfaces[elem_add.port] = new_interface
+                    logging.info(&#34;Serial interface {} ({}) connected.&#34;.format(elem_add.port, elem_add.description))
+
+            time.sleep(self._MONITOR_DELAY)
+
+    def close(self):
+        &#34;&#34;&#34;
+        Closes the gateway, ending the serial loop.
+        Returns:
+            None
+        &#34;&#34;&#34;
+        self._started = False
+        for interface in self._interfaces:
+            self._interfaces[interface].close()
+
+    def forward(self, dest: str, msg: str) -&gt; None:
+        &#34;&#34;&#34;
+        Forwards a string message to the device connected through the interface identified by dest.
+        Args:
+            dest: the id of the interface to which you&#39;re forwarding data.
+            msg: the message being sent.
+
+        Returns:
+            None
+        &#34;&#34;&#34;
+        try:
+            self._interfaces[dest].send(msg)
+        except KeyError:
+            raise KeyError(&#34;No such interface!&#34;)
+
+    def broadcast(self, msg: str) -&gt; None:
+        &#34;&#34;&#34;
+        Broadcasts a string message to each interface connected.
+        Args:
+            msg: the message being broadcasted.
+
+        Returns:
+            None
+        &#34;&#34;&#34;
+
+        for interface_id in self._interfaces:
+            self._interfaces[interface_id].send(msg)
+
+    def listen(self):
+        &#34;&#34;&#34;
+        Non blocking listen method for the gateway.
+        Returns:
+            None
+        &#34;&#34;&#34;
+        Thread(target=self._serial_monitor).start()
+
+    def listen_forever(self):
+        &#34;&#34;&#34;
+        Blocking listen method for the gateway.
+        Returns:
+            None
+        &#34;&#34;&#34;
+        self._serial_monitor()</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="antimait.Gateway.on_connect"><code class="name">var <span class="ident">on_connect</span></code></dt>
+<dd>
+<section class="desc"><p>on_connect callable that defaults to None. Redefine to give a custom on_connect
+behaviour to the gateway object.</p></section>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="antimait.Gateway.interfaces"><code class="name">var <span class="ident">interfaces</span></code></dt>
+<dd>
+<section class="desc"><h2 id="returns">Returns</h2>
+<dl>
+<dt><code>List</code>[<code>CommInterface</code>], <code>a</code> <code>list</code> of <code>the</code> <code>interfaces</code> <code>connected</code> <code>at</code> <code>this</code> <code>time</code></dt>
+<dd>&nbsp;</dd>
+</dl></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def interfaces(self) -&gt; List[CommInterface]:
+    &#34;&#34;&#34;
+    Returns:
+       List[CommInterface], a list of the interfaces connected at this time
+    &#34;&#34;&#34;
+    return list(self._interfaces.values())</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="antimait.Gateway.broadcast"><code class="name flex">
+<span>def <span class="ident">broadcast</span></span>(<span>self, msg)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Broadcasts a string message to each interface connected.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>msg</code></strong></dt>
+<dd>the message being broadcasted.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>None</code></dt>
+<dd>&nbsp;</dd>
+</dl></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def broadcast(self, msg: str) -&gt; None:
+    &#34;&#34;&#34;
+    Broadcasts a string message to each interface connected.
+    Args:
+        msg: the message being broadcasted.
+
+    Returns:
+        None
+    &#34;&#34;&#34;
+
+    for interface_id in self._interfaces:
+        self._interfaces[interface_id].send(msg)</code></pre>
+</details>
+</dd>
+<dt id="antimait.Gateway.close"><code class="name flex">
+<span>def <span class="ident">close</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Closes the gateway, ending the serial loop.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>None</code></dt>
+<dd>&nbsp;</dd>
+</dl></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def close(self):
+    &#34;&#34;&#34;
+    Closes the gateway, ending the serial loop.
+    Returns:
+        None
+    &#34;&#34;&#34;
+    self._started = False
+    for interface in self._interfaces:
+        self._interfaces[interface].close()</code></pre>
+</details>
+</dd>
+<dt id="antimait.Gateway.forward"><code class="name flex">
+<span>def <span class="ident">forward</span></span>(<span>self, dest, msg)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Forwards a string message to the device connected through the interface identified by dest.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>dest</code></strong></dt>
+<dd>the id of the interface to which you're forwarding data.</dd>
+<dt><strong><code>msg</code></strong></dt>
+<dd>the message being sent.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>None</code></dt>
+<dd>&nbsp;</dd>
+</dl></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def forward(self, dest: str, msg: str) -&gt; None:
+    &#34;&#34;&#34;
+    Forwards a string message to the device connected through the interface identified by dest.
+    Args:
+        dest: the id of the interface to which you&#39;re forwarding data.
+        msg: the message being sent.
+
+    Returns:
+        None
+    &#34;&#34;&#34;
+    try:
+        self._interfaces[dest].send(msg)
+    except KeyError:
+        raise KeyError(&#34;No such interface!&#34;)</code></pre>
+</details>
+</dd>
+<dt id="antimait.Gateway.listen"><code class="name flex">
+<span>def <span class="ident">listen</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Non blocking listen method for the gateway.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>None</code></dt>
+<dd>&nbsp;</dd>
+</dl></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def listen(self):
+    &#34;&#34;&#34;
+    Non blocking listen method for the gateway.
+    Returns:
+        None
+    &#34;&#34;&#34;
+    Thread(target=self._serial_monitor).start()</code></pre>
+</details>
+</dd>
+<dt id="antimait.Gateway.listen_forever"><code class="name flex">
+<span>def <span class="ident">listen_forever</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Blocking listen method for the gateway.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>None</code></dt>
+<dd>&nbsp;</dd>
+</dl></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def listen_forever(self):
+    &#34;&#34;&#34;
+    Blocking listen method for the gateway.
+    Returns:
+        None
+    &#34;&#34;&#34;
+    self._serial_monitor()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="antimait.Printer"><code class="flex name class">
+<span>class <span class="ident">Printer</span></span>
+</code></dt>
+<dd>
+<section class="desc"><p>A simple receiver class that serves as an example for other receiver implementations.
+This just prints whatever it receives.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Printer(DataReceiver):
+    &#34;&#34;&#34;
+    A simple receiver class that serves as an example for other receiver implementations.
+    This just prints whatever it receives.
+    &#34;&#34;&#34;
+    def update(self, action: Comm, **update: str) -&gt; None:
+        if action == Comm.DATA:
+            if &#34;data&#34; in update:
+                print(&#34;Printing data: {}&#34;.format(update[&#34;data&#34;]))
+            else:
+                logging.error(&#34;data keyword not passed!&#34;)
+        elif action == Comm.CLOSING:
+            logging.info(&#34;Printer closing&#34;)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="antimait.DataReceiver" href="#antimait.DataReceiver">DataReceiver</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="antimait.DataReceiver" href="#antimait.DataReceiver">DataReceiver</a></b></code>:
+<ul class="hlist">
+<li><code><a title="antimait.DataReceiver.update" href="#antimait.DataReceiver.update">update</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="antimait.SerialInterface"><code class="flex name class">
+<span>class <span class="ident">SerialInterface</span></span>
+<span>(</span><span>port, baud_rate=None)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>An abstract class that represents a generic communication interface. A way to acquire data and to
+stop the process must be specified by any inherithing class.</p>
+<p>Constructs a new serial interface based on serial.Serial.
+When listening for serial data, this class uses the Observer pattern to notify that new
+data has been acquired. It is passed through the DataSource.notify method to any observer,
+under the data keyword.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>port</code></strong> :&ensp;<code>str</code></dt>
+<dd>the serial port from which reading the data.</dd>
+<dt><strong><code>baud_rate</code></strong> :&ensp;<code>int</code></dt>
+<dd>the baud rate, the default value is specified in DEFAULT_BAUD = 9600.</dd>
+</dl></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class SerialInterface(CommInterface):
+    def __init__(self, port: str, baud_rate: int = None):
+        &#34;&#34;&#34;
+        Constructs a new serial interface based on serial.Serial.
+        When listening for serial data, this class uses the Observer pattern to notify that new
+        data has been acquired. It is passed through the DataSource.notify method to any observer,
+        under the data keyword.
+        Args:
+            port (str): the serial port from which reading the data.
+            baud_rate (int): the baud rate, the default value is specified in DEFAULT_BAUD = 9600.
+        &#34;&#34;&#34;
+        super().__init__()
+        self._port: str = port
+        self._baud_rate: int = baud_rate or DEFAULT_BAUD
+        self._listening: bool = False
+        try:
+            self._serial: serial.Serial = serial.Serial(port=self._port, baudrate=self._baud_rate)
+        except Exception as e:
+            raise e
+
+    @property
+    def ifc_id(self):
+        return self._port
+
+    def _poll(self) -&gt; None:
+        &#34;&#34;&#34;
+        The method implementing the polling routine that reads from the serial port.
+        Returns:
+            None
+        &#34;&#34;&#34;
+        if self._listening:
+            return
+
+        self._listening = True
+        try:
+            while self._listening:
+                data = self._serial.readline()
+                self.notify(action=Comm.DATA, data=data.decode())
+        except serial.SerialException:
+            logging.error(&#34;Serial error, closing interface&#34;)
+            self.listen()
+        except UnicodeDecodeError as ude:
+            logging.error(ude)
+            self.listen()
+
+    def close(self) -&gt; None:
+        self._listening = False
+        self.notify(action=Comm.CLOSING)
+
+    def send(self, msg: str) -&gt; None:
+        self._serial.write(msg.encode())
+
+    def listen(self) -&gt; None:
+        Thread(target=self._poll).start()
+
+    def listen_forever(self) -&gt; None:
+        self._poll()</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="antimait.CommInterface" href="#antimait.CommInterface">CommInterface</a></li>
+<li>abc.ABC</li>
+<li>antimait.DataSource</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="antimait.CommInterface" href="#antimait.CommInterface">CommInterface</a></b></code>:
+<ul class="hlist">
+<li><code><a title="antimait.CommInterface.close" href="#antimait.CommInterface.close">close</a></code></li>
+<li><code><a title="antimait.CommInterface.ifc_id" href="#antimait.CommInterface.ifc_id">ifc_id</a></code></li>
+<li><code><a title="antimait.CommInterface.listen" href="#antimait.CommInterface.listen">listen</a></code></li>
+<li><code><a title="antimait.CommInterface.listen_forever" href="#antimait.CommInterface.listen_forever">listen_forever</a></code></li>
+<li><code><a title="antimait.CommInterface.send" href="#antimait.CommInterface.send">send</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<img style="width: 5vw;" src="antima_logo.png">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<ul>
+<li><code><a title="antimait.plotting" href="plotting.html">antimait.plotting</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="antimait.com_interfaces" href="#antimait.com_interfaces">com_interfaces</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="antimait.Comm" href="#antimait.Comm">Comm</a></code></h4>
+<ul class="">
+<li><code><a title="antimait.Comm.CLOSING" href="#antimait.Comm.CLOSING">CLOSING</a></code></li>
+<li><code><a title="antimait.Comm.DATA" href="#antimait.Comm.DATA">DATA</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="antimait.CommInterface" href="#antimait.CommInterface">CommInterface</a></code></h4>
+<ul class="">
+<li><code><a title="antimait.CommInterface.close" href="#antimait.CommInterface.close">close</a></code></li>
+<li><code><a title="antimait.CommInterface.ifc_id" href="#antimait.CommInterface.ifc_id">ifc_id</a></code></li>
+<li><code><a title="antimait.CommInterface.listen" href="#antimait.CommInterface.listen">listen</a></code></li>
+<li><code><a title="antimait.CommInterface.listen_forever" href="#antimait.CommInterface.listen_forever">listen_forever</a></code></li>
+<li><code><a title="antimait.CommInterface.send" href="#antimait.CommInterface.send">send</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="antimait.DataReceiver" href="#antimait.DataReceiver">DataReceiver</a></code></h4>
+<ul class="">
+<li><code><a title="antimait.DataReceiver.update" href="#antimait.DataReceiver.update">update</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="antimait.Gateway" href="#antimait.Gateway">Gateway</a></code></h4>
+<ul class="two-column">
+<li><code><a title="antimait.Gateway.broadcast" href="#antimait.Gateway.broadcast">broadcast</a></code></li>
+<li><code><a title="antimait.Gateway.close" href="#antimait.Gateway.close">close</a></code></li>
+<li><code><a title="antimait.Gateway.forward" href="#antimait.Gateway.forward">forward</a></code></li>
+<li><code><a title="antimait.Gateway.interfaces" href="#antimait.Gateway.interfaces">interfaces</a></code></li>
+<li><code><a title="antimait.Gateway.listen" href="#antimait.Gateway.listen">listen</a></code></li>
+<li><code><a title="antimait.Gateway.listen_forever" href="#antimait.Gateway.listen_forever">listen_forever</a></code></li>
+<li><code><a title="antimait.Gateway.on_connect" href="#antimait.Gateway.on_connect">on_connect</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="antimait.Printer" href="#antimait.Printer">Printer</a></code></h4>
+</li>
+<li>
+<h4><code><a title="antimait.SerialInterface" href="#antimait.SerialInterface">SerialInterface</a></code></h4>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.5</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>
