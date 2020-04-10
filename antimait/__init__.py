@@ -19,9 +19,18 @@ import time
 import sys
 
 
-__all__ = ["Comm", "DataReceiver", "CommInterface", "SerialInterface", "Printer", "Gateway"]
+__all__ = ["com_interfaces", "Comm", "DataReceiver", "CommInterface", "SerialInterface", "Printer", "Gateway"]
 
 DEFAULT_BAUD = 9600
+
+
+def com_interfaces() -> Dict[str, str]:
+    """
+    Returns a dict containing information about the devices connected through the comport
+    Returns:
+
+    """
+    return {ifc.device: ifc.description for ifc in list_ports.comports()}
 
 
 class Comm(Enum):
@@ -168,7 +177,6 @@ class SerialInterface(CommInterface):
             baud_rate (int): the baud rate, the default value is specified in DEFAULT_BAUD = 9600.
         """
         super().__init__()
-        self._ifc_id = "serial_{}".format(port)
         self._port: str = port
         self._baud_rate: int = baud_rate or DEFAULT_BAUD
         self._listening: bool = False
@@ -179,7 +187,7 @@ class SerialInterface(CommInterface):
 
     @property
     def ifc_id(self):
-        return self._ifc_id
+        return self._port
 
     def _poll(self) -> None:
         """
@@ -366,7 +374,7 @@ class Gateway:
         except KeyError:
             raise KeyError("No such interface!")
 
-    def broadcast(self, msg: str):
+    def broadcast(self, msg: str) -> None:
         """
         Broadcasts a string message to each interface connected.
         Args:
