@@ -6,7 +6,7 @@ with open("README.md", "r") as desc_file:
 
 setup(
     name="antimait",
-    version="0.2.2",
+    version="0.2.3",
     description="antimait is a library made of tools to ease the implementation "
                 "of IoT automation systems based on devices such as Arduino and ESP.",
     long_description=desc,

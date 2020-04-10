@@ -20,10 +20,10 @@ gw = antimait.Gateway()
 
 
 def on_connect(interface: antimait.CommInterface, description: str) -> None:
+    plotter = antimait.Plotter(description)
     printer = antimait.Printer()
-    plotter = antimait.plotting.Plotter(description)
-    interface.attach(printer)
     interface.attach(plotter)
+    interface.attach(printer)
 
 
 gw.on_connect = on_connect
