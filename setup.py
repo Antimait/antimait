@@ -13,7 +13,7 @@ setup(
     long_description_content_type="text/markdown",
     author="Gianmarco Marcello",
     author_email="g.marcello@antima.it",
-    url="https://github.com/Antimait/antimait",
+    url="https://github.com/antima/antimait",
     python_requires=">=3.7",
     install_requires=["matplotlib", "pyserial", "typing_extensions"],
     packages=find_packages(exclude=["tests"]),
