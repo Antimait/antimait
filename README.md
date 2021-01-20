@@ -15,7 +15,7 @@ or clone this repository, change directory to the root of the project and run:
 <h3>Documentation</h3>
 
 Documentation for the antimait library can be found in the <b>docs</b> directory or at the following link:
-https://antimait.github.io/antimait
+https://antima.github.io/antimait
 
 <h4>[ita]</h4>
 
